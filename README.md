@@ -83,15 +83,11 @@ wwwroot/
 ### Product Management
 
 ![Products](screenshots/admin-products.png)
+### Mobile 
+![Dashboard](screenshots/shopsetting-mobile.png)
 
-### Orders
-
-![Orders](screenshots/admin-orders.png)
-
-### Settings
-
-![Settings](screenshots/admin-settings.png)
-
+### About Mobile
+![About](screenshots/about-mobile.png)
 ---
 
 ## 🔧 Getting Started
