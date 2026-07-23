@@ -1,0 +1,98 @@
+﻿@model OnlineShop.Models.SiteSetting
+
+@{
+    ViewData["Title"] = "تنظیمات ارسال";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid">
+
+    <div class="card shadow-sm border-0">
+
+        <div class="card-header bg-success text-white">
+            <h4 class="mb-0">
+                <i class="bi bi-truck me-2"></i>
+                تنظیمات ارسال
+            </h4>
+        </div>
+
+        <div class="card-body">
+
+            @if (TempData["Success"] != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show">
+                    @TempData["Success"]
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="alert"></button>
+                </div>
+            }
+
+            <form asp-action="ShippingSettings" method="post">
+
+                <div asp-validation-summary="ModelOnly"
+                     class="text-danger mb-3"></div>
+
+                <div class="row">
+
+                    <div class="col-md-6 mb-4">
+                        <label asp-for="ShippingCost" class="form-label fw-bold">
+                            هزینه ارسال (تومان)
+                        </label>
+
+                        <input asp-for="ShippingCost"
+                               class="form-control" />
+
+                        <span asp-validation-for="ShippingCost"
+                              class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6 mb-4">
+                        <label asp-for="FreeShippingAmount" class="form-label fw-bold">
+                            حداقل خرید برای ارسال رایگان (تومان)
+                        </label>
+
+                        <input asp-for="FreeShippingAmount"
+                               class="form-control" />
+
+                        <span asp-validation-for="FreeShippingAmount"
+                              class="text-danger"></span>
+                    </div>
+
+                    <div class="col-12">
+
+                        <label asp-for="WorkingHours"
+                               class="form-label fw-bold">
+                            ساعات کاری
+                        </label>
+
+                        <textarea asp-for="WorkingHours"
+                                  rows="4"
+                                  class="form-control"
+                                  placeholder="مثال: شنبه تا پنجشنبه ۹ تا ۱۸"></textarea>
+
+                        <span asp-validation-for="WorkingHours"
+                              class="text-danger"></span>
+
+                    </div>
+
+                </div>
+
+                <hr />
+
+                <button class="btn btn-success">
+                    <i class="bi bi-check-circle me-1"></i>
+                    ذخیره تنظیمات
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

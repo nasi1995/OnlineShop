@@ -1,0 +1,103 @@
+﻿@model OnlineShop.Models.SiteSetting
+
+@{
+    ViewData["Title"] = "تماس با ما";
+}
+
+<section class="contact-section">
+    <div class="container">
+
+        <div class="contact-header">
+            <h1>تماس با ما</h1>
+            <p>برای خرید و مشاوره با مجموعه نبات در ارتباط باشید.</p>
+        </div>
+
+        <div class="row g-4">
+
+            <!-- اطلاعات تماس -->
+            <div class="col-lg-5">
+
+                <div class="contact-box">
+
+                    <div class="contact-item">
+                        <i class="bi bi-geo-alt"></i>
+                        <p>@Model?.Address</p>
+                    </div>
+
+                    <div class="contact-item">
+                        <i class="bi bi-telephone"></i>
+                        <p>@Model?.Phone</p>
+                    </div>
+
+                    <div class="contact-item">
+                        <i class="bi bi-phone"></i>
+                        <p>@Model?.Mobile</p>
+                    </div>
+
+                    <div class="contact-item">
+                        <i class="bi bi-envelope"></i>
+                        <p>@Model?.Email</p>
+                    </div>
+
+                    <div class="contact-item">
+                        <i class="bi bi-clock"></i>
+                        <p>
+                            @if (!string.IsNullOrWhiteSpace(Model?.WorkingHours))
+                            {
+                                @Model.WorkingHours
+                            }
+                            else
+                            {
+                                <span>شنبه تا پنجشنبه ۹ تا ۱۸</span>
+                            }
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- فرم تماس -->
+            <div class="col-lg-7">
+
+                <div class="contact-form">
+
+                    <h3>ارسال پیام</h3>
+
+                    <form>
+
+                        <div class="mb-3">
+                            <input class="form-control"
+                                   placeholder="نام شما">
+                        </div>
+
+                        <div class="mb-3">
+                            <input class="form-control"
+                                   placeholder="شماره تماس">
+                        </div>
+
+                        <div class="mb-3">
+                            <input class="form-control"
+                                   placeholder="ایمیل">
+                        </div>
+
+                        <div class="mb-3">
+                            <textarea class="form-control"
+                                      rows="5"
+                                      placeholder="متن پیام"></textarea>
+                        </div>
+
+                        <button type="submit" class="contact-btn">
+                            ارسال پیام
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>

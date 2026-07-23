@@ -1,0 +1,127 @@
+﻿@{
+    ViewData["Title"] = "تغییر تصویر پروفایل";
+}
+
+
+<div class="container py-5">
+
+    <div class="card shadow-sm border-0 mx-auto"
+         style="max-width:450px;">
+
+        <div class="card-body p-4">
+
+
+            <h4 class="text-center mb-4">
+                تغییر تصویر پروفایل
+            </h4>
+
+
+
+            @if (TempData["Error"] != null)
+            {
+                <div class="alert alert-danger">
+                    @TempData["Error"]
+                </div>
+            }
+
+
+            @if (TempData["Success"] != null)
+            {
+                <div class="alert alert-success">
+                    @TempData["Success"]
+                </div>
+            }
+
+
+
+            <form asp-action="ChangePhoto"
+                  asp-controller="Profile"
+                  method="post"
+                  enctype="multipart/form-data">
+
+
+                <div class="text-center mb-4">
+
+
+                    <img id="previewImage"
+                         src="~/images/default-user.png"
+                         class="rounded-circle border"
+                         width="120"
+                         height="120"
+                         style="object-fit:cover;" />
+
+
+                </div>
+
+
+
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        انتخاب تصویر
+                    </label>
+
+
+                    <input type="file"
+                           name="Photo"
+                           id="photoInput"
+                           class="form-control"
+                           accept="image/*" />
+
+
+                </div>
+
+
+
+                <button type="submit"
+                        class="btn btn-success w-100">
+
+                    ذخیره تصویر
+
+                </button>
+
+
+
+            </form>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+@section Scripts
+{
+    <script>
+
+        document
+        .getElementById("photoInput")
+        .addEventListener("change", function(e){
+
+            const file = e.target.files[0];
+
+            if(file)
+            {
+                const reader = new FileReader();
+
+
+                reader.onload = function(e)
+                {
+                    document
+                    .getElementById("previewImage")
+                    .src = e.target.result;
+                }
+
+
+                reader.readAsDataURL(file);
+            }
+
+        });
+
+
+    </script>
+}

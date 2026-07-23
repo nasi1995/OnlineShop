@@ -1,0 +1,36 @@
+﻿@model IEnumerable<OnlineShop.Models.Product>
+
+@{
+    ViewData["Title"] = "محصولات";
+}
+
+@await Html.PartialAsync("_Toolbar")
+
+<section class="shop-section">
+
+    <div class="container-fluid px-5">
+
+        <div class="row g-4">
+
+            <!-- Filter -->
+            <div class="col-12 col-lg-3">
+
+                @await Html.PartialAsync("_Filter")
+
+            </div>
+
+
+            <!-- Products -->
+            <div class="col-12 col-lg-9">
+
+                @await Html.PartialAsync("_Product", Model)
+
+                @await Html.PartialAsync("_Pagination")
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>

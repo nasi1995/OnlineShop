@@ -1,0 +1,94 @@
+﻿@model OnlineShop.Models.Order
+
+@{
+    ViewData["Title"] = "پرداخت موفق";
+}
+
+<div class="success-page">
+
+    <div class="success-card">
+
+        <i class="bi bi-check-circle-fill"></i>
+
+        <h2>
+            پرداخت با موفقیت انجام شد 🍯
+        </h2>
+
+        <p>
+            سفارش شما با موفقیت ثبت شد.
+            از اعتماد شما سپاسگزاریم.
+        </p>
+
+
+        <div class="order-info">
+
+            <p>
+                شماره سفارش:
+                <strong>@Model.Id</strong>
+            </p>
+
+            <p>
+                کد رهگیری سفارش:
+                <strong class="text-primary">
+                    NB-@Model.Id.ToString("D6")
+                </strong>
+            </p>
+
+            <p>
+                مبلغ پرداختی:
+                <strong>
+                    @Model.TotalPrice.ToString("N0") تومان
+                </strong>
+            </p>
+
+            <p>
+                وضعیت سفارش:
+                <strong class="text-success">
+                    پرداخت موفق
+                </strong>
+            </p>
+
+            <p>
+                تاریخ ثبت:
+                <strong>
+                    @Model.CreatedAt.ToString("yyyy/MM/dd HH:mm")
+                </strong>
+            </p>
+
+            @if (ViewBag.RefId != null)
+            {
+                <p>
+                    شماره پیگیری پرداخت:
+                    <strong class="text-primary">
+                        @ViewBag.RefId
+                    </strong>
+                </p>
+            }
+
+        </div>
+
+
+        <div class="d-flex justify-content-center gap-3 mt-4 flex-wrap">
+
+            <a asp-controller="Profile"
+               asp-action="Index"
+               class="btn btn-outline-success rounded-pill px-4">
+
+                سفارش‌های من
+
+            </a>
+
+
+            <a asp-controller="Home"
+               asp-action="Index"
+               class="nabat-btn">
+
+                بازگشت به فروشگاه
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,118 @@
+﻿@model OnlineShop.Models.Product
+
+<section class="details-tabs-section">
+
+    <div class="container">
+
+        <ul class="nav nav-pills details-tabs mb-4"
+            id="productTab"
+            role="tablist">
+
+            <li class="nav-item">
+                <button class="nav-link active"
+                        data-bs-toggle="pill"
+                        data-bs-target="#description">
+                    توضیحات
+                </button>
+            </li>
+
+            <li class="nav-item">
+                <button class="nav-link"
+                        data-bs-toggle="pill"
+                        data-bs-target="#specifications">
+                    مشخصات
+                </button>
+            </li>
+
+            <li class="nav-item">
+                <button class="nav-link"
+                        data-bs-toggle="pill"
+                        data-bs-target="#comments">
+                    نظرات (@Model.ReviewCount)
+                </button>
+            </li>
+
+        </ul>
+
+        <div class="tab-content details-tab-content">
+
+            <!-- توضیحات -->
+
+            <div class="tab-pane fade show active"
+                 id="description">
+
+                <p>
+                    @Model.Description
+                </p>
+
+            </div>
+
+            <!-- مشخصات -->
+
+            <div class="tab-pane fade"
+                 id="specifications">
+
+                <table class="table details-spec-table">
+
+                    <tr>
+                        <th>وزن</th>
+                        <td>@Model.Weight</td>
+                    </tr>
+
+                    <tr>
+                        <th>نوع محصول</th>
+                        <td>@Model.ProductType</td>
+                    </tr>
+
+                    <tr>
+                        <th>طعم</th>
+                        <td>@Model.Flavor</td>
+                    </tr>
+
+                    <tr>
+                        <th>دسته‌بندی</th>
+                        <td>@Model.Category.Name</td>
+                    </tr>
+
+                </table>
+
+            </div>
+
+            <!-- نظرات -->
+
+            <div class="tab-pane fade"
+                 id="comments">
+
+                @if (Model.ReviewCount > 0)
+                {
+                    <div class="details-comment">
+
+                        <h5>نظر کاربران</h5>
+
+                        <div class="details-comment-stars">
+                            ★★★★★
+                        </div>
+
+                        <p>
+                            این محصول تاکنون <strong>@Model.ReviewCount</strong> نظر ثبت شده دارد.
+                            سیستم ثبت و نمایش نظرات به‌زودی به فروشگاه اضافه خواهد شد.
+                        </p>
+
+                    </div>
+                }
+                else
+                {
+                    <div class="alert alert-light text-center">
+
+                        هنوز نظری برای این محصول ثبت نشده است.
+
+                    </div>
+                }
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>

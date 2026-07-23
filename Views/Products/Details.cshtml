@@ -1,0 +1,227 @@
+﻿@model OnlineShop.Models.Product
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<section class="product-details py-5">
+
+    <div class="container">
+
+        <div class="row g-5 align-items-center">
+
+            <!-- تصویر محصول -->
+
+            <div class="col-lg-5">
+
+                <div class="details-gallery">
+
+                    <img src="@Model.ImageUrl"
+                         class="img-fluid rounded-4 shadow">
+
+                </div>
+
+            </div>
+
+            <!-- اطلاعات -->
+
+            <div class="col-lg-7">
+
+                <div class="details-info">
+
+                    <span class="details-category">
+                        @Model.Category.Name
+                    </span>
+
+                    <h1 class="details-title">
+                        @Model.Name
+                    </h1>
+
+                    <div class="details-review">
+
+                        <div class="details-stars">
+
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-half"></i>
+
+                        </div>
+
+                        <span>
+                            (@Model.ReviewCount نظر)
+                        </span>
+
+                    </div>
+
+                    <div class="details-price">
+
+                        @if (Model.OldPrice != null)
+                        {
+                            <del>@Model.OldPrice.Value.ToString("N0") تومان</del>
+                        }
+
+                        <h2>
+                            @Model.Price.ToString("N0") تومان
+                        </h2>
+
+                    </div>
+
+                    <p class="details-description">
+
+                        @Model.Description
+
+                    </p>
+
+                    @Model.Weight<div class="details-weight">
+
+                    <label>وزن</label>
+
+                    <div class="weight-options">
+
+                        <input type="radio"
+                               id="weight1"
+                               name="weight"
+                               value="500 گرم"
+                               checked />
+
+                        <label for="weight1">
+                            500 گرم
+                        </label>
+
+
+
+                        <input type="radio"
+                               id="weight2"
+                               name="weight"
+                               value="1 کیلوگرم" />
+
+                        <label for="weight2">
+                            1 کیلوگرم
+                        </label>
+
+
+
+                        <input type="radio"
+                               id="weight3"
+                               name="weight"
+                               value="2 کیلوگرم" />
+
+                        <label for="weight3">
+                            2 کیلوگرم
+                        </label>
+
+                    </div>
+
+                </div>
+                    <form asp-controller="Cart"
+                          asp-action="Add"
+                          method="post">
+
+
+                        <input type="hidden"
+                               name="productId"
+                               value="@Model.Id" />
+
+
+                        <div class="details-quantity">
+
+                            <label>تعداد</label>
+
+                            <div class="details-qty-box">
+
+                                <button type="button"
+                                        onclick="changeQty(-1)">
+                                    -
+                                </button>
+
+
+                                <input id="qty"
+                                       name="quantity"
+                                       type="number"
+                                       value="1"
+                                       min="1" />
+
+
+                                <button type="button"
+                                        onclick="changeQty(1)">
+                                    +
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        <button type="submit"
+                                class="details-buy-btn border-0">
+
+                            <i class="bi bi-cart-plus"></i>
+
+                            افزودن به سبد خرید
+
+                        </button>
+
+
+                    </form>
+
+                    <ul class="details-meta">
+
+                        <li>
+
+                            <strong>دسته بندی :</strong>
+
+                            @Model.Category.Name
+
+                        </li>
+
+                        <li>
+
+                            <strong>نوع :</strong>
+
+                            @Model.ProductType
+
+                        </li>
+
+                        <li>
+
+                            <strong>طعم :</strong>
+
+                            @Model.Flavor
+
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+@await Html.PartialAsync("_ProductTabs", Model)
+<script>
+
+    function changeQty(value){
+
+        let input=document.getElementById("qty");
+
+        let current=parseInt(input.value);
+
+        current += value;
+
+        if(current < 1)
+            current = 1;
+
+        input.value=current;
+
+    }
+
+</script>
+
+@* @await Html.PartialAsync("_RelatedProducts") *@

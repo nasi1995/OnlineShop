@@ -1,0 +1,94 @@
+﻿@model OnlineShop.Models.SiteSetting
+
+@{
+    ViewData["Title"] = "تنظیمات شبکه‌های اجتماعی";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid">
+
+    <div class="card shadow-sm border-0">
+
+        <div class="card-header bg-success text-white">
+            <h4 class="mb-0">
+                <i class="bi bi-share-fill me-2"></i>
+                تنظیمات شبکه‌های اجتماعی
+            </h4>
+        </div>
+
+        <div class="card-body">
+
+            @if (TempData["Success"] != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show">
+                    @TempData["Success"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            }
+
+            <form asp-action="SocialSettings" method="post">
+
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <div class="row g-4">
+
+                    <div class="col-md-6">
+                        <label asp-for="Instagram" class="form-label fw-bold"></label>
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="bi bi-instagram"></i>
+                            </span>
+                            <input asp-for="Instagram"
+                                   class="form-control"
+                                   placeholder="https://instagram.com/username" />
+                        </div>
+                        <span asp-validation-for="Instagram" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="Telegram" class="form-label fw-bold"></label>
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="bi bi-telegram"></i>
+                            </span>
+                            <input asp-for="Telegram"
+                                   class="form-control"
+                                   placeholder="https://t.me/username" />
+                        </div>
+                        <span asp-validation-for="Telegram" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="WhatsApp" class="form-label fw-bold"></label>
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="bi bi-whatsapp"></i>
+                            </span>
+                            <input asp-for="WhatsApp"
+                                   class="form-control"
+                                   placeholder="https://wa.me/98912xxxxxxx" />
+                        </div>
+                        <span asp-validation-for="WhatsApp" class="text-danger"></span>
+                    </div>
+
+                </div>
+
+                <hr class="my-4" />
+
+                <button type="submit" class="btn btn-success">
+                    <i class="bi bi-check-circle me-1"></i>
+                    ذخیره تغییرات
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+

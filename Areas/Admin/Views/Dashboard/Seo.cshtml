@@ -1,0 +1,112 @@
+﻿@model OnlineShop.Models.SiteSetting
+
+@{
+    ViewData["Title"] = "تنظیمات سئو";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid">
+
+    <div class="card shadow-sm border-0">
+
+        <div class="card-header bg-success text-white">
+            <h4 class="mb-0">
+                <i class="bi bi-search me-2"></i>
+                تنظیمات سئو (SEO)
+            </h4>
+        </div>
+
+        <div class="card-body">
+
+            @if (TempData["Success"] != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show">
+                    @TempData["Success"]
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="alert">
+                    </button>
+                </div>
+            }
+
+            <form asp-action="Seo" method="post">
+
+                <div asp-validation-summary="ModelOnly"
+                     class="text-danger mb-3">
+                </div>
+
+                <div class="mb-4">
+                    <label asp-for="MetaTitle" class="form-label fw-bold"></label>
+
+                    <input asp-for="MetaTitle"
+                           class="form-control"
+                           placeholder="مثال: فروشگاه اینترنتی نبات | خرید نبات زعفرانی" />
+
+                    <span asp-validation-for="MetaTitle"
+                          class="text-danger"></span>
+
+                    <small class="text-muted">
+                        پیشنهاد: کمتر از 60 کاراکتر باشد.
+                    </small>
+                </div>
+
+                <div class="mb-4">
+
+                    <label asp-for="MetaDescription"
+                           class="form-label fw-bold"></label>
+
+                    <textarea asp-for="MetaDescription"
+                              rows="5"
+                              class="form-control"
+                              placeholder="توضیح کوتاهی درباره سایت بنویسید..."></textarea>
+
+                    <span asp-validation-for="MetaDescription"
+                          class="text-danger"></span>
+
+                    <small class="text-muted">
+                        پیشنهاد: بین 120 تا 160 کاراکتر.
+                    </small>
+
+                </div>
+
+                <div class="mb-4">
+
+                    <label asp-for="Keywords"
+                           class="form-label fw-bold"></label>
+
+                    <textarea asp-for="Keywords"
+                              rows="3"
+                              class="form-control"
+                              placeholder="نبات، نبات زعفرانی، خرید نبات، نبات شاخه ای"></textarea>
+
+                    <span asp-validation-for="Keywords"
+                          class="text-danger"></span>
+
+                    <small class="text-muted">
+                        کلمات کلیدی را با ویرگول از هم جدا کنید.
+                    </small>
+
+                </div>
+
+                <hr />
+
+                <button type="submit"
+                        class="btn btn-success">
+
+                    <i class="bi bi-check-circle me-1"></i>
+
+                    ذخیره تنظیمات
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

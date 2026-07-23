@@ -1,0 +1,126 @@
+﻿@model OnlineShop.Models.ApplicationUser
+
+@{
+    ViewData["Title"] = "ویرایش آدرس";
+}
+
+
+<div class="container py-5">
+
+    <div class="card shadow border-0 rounded-4 mx-auto"
+         style="max-width:600px">
+
+
+        <div class="card-body p-4">
+
+
+            <h4 class="text-center mb-4">
+                تغییر آدرس
+            </h4>
+
+
+            @if (TempData["Error"] != null)
+            {
+                <div class="alert alert-danger">
+                    @TempData["Error"]
+                </div>
+            }
+
+
+            <form asp-action="EditAddress"
+                  method="post">
+
+
+                <div asp-validation-summary="ModelOnly"
+                     class="text-danger">
+                </div>
+
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        استان
+                    </label>
+
+                    <input asp-for="Province"
+                           class="form-control" />
+
+                </div>
+
+
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        شهر
+                    </label>
+
+                    <input asp-for="City"
+                           class="form-control" />
+
+                </div>
+
+
+
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        آدرس کامل
+                    </label>
+
+
+                    <textarea asp-for="Address"
+                              class="form-control"
+                              rows="3"></textarea>
+
+                </div>
+
+
+
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        کد پستی
+                    </label>
+
+
+                    <input asp-for="PostalCode"
+                           class="form-control" />
+
+                </div>
+
+
+
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        شماره موبایل
+                    </label>
+
+
+                    <input asp-for="Mobile"
+                           class="form-control" />
+
+                </div>
+
+
+
+                <button type="submit"
+                        class="btn btn-success w-100">
+
+                    ذخیره آدرس
+
+                </button>
+
+
+            </form>
+
+
+        </div>
+
+    </div>
+
+</div>

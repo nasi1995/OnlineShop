@@ -1,0 +1,172 @@
+﻿@model OnlineShop.Models.ApplicationUser
+
+@{
+    ViewData["Title"] = "جزئیات کاربر";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <h2 class="fw-bold text-primary">
+            <i class="bi bi-person-circle ms-2"></i>
+            جزئیات کاربر
+        </h2>
+
+        <a asp-area="Admin"
+           asp-controller="Dashboard"
+           asp-action="Users"
+           class="btn btn-secondary">
+
+            <i class="bi bi-arrow-right ms-2"></i>
+
+            بازگشت
+
+        </a>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-lg-4">
+
+            <div class="card shadow border-0">
+
+                <div class="card-body text-center">
+
+                    @if (!string.IsNullOrEmpty(Model.ProfileImage))
+                    {
+                        <img src="@Model.ProfileImage"
+                             class="rounded-circle shadow mb-3"
+                             width="170"
+                             height="170"
+                             style="object-fit:cover;">
+                    }
+                    else
+                    {
+                        <img src="https://placehold.co/170x170?text=User"
+                             class="rounded-circle shadow mb-3">
+                    }
+
+                    <h4 class="fw-bold">@Model.FullName</h4>
+
+                    <span class="badge bg-primary mt-2">
+                        @ViewBag.Role
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-8">
+
+            <div class="card shadow border-0">
+
+                <div class="card-header bg-primary text-white">
+
+                    اطلاعات کاربر
+
+                </div>
+
+                <div class="card-body">
+
+                    <table class="table table-bordered align-middle">
+
+                        <tr>
+                            <th width="220">نام کامل</th>
+                            <td>@Model.FullName</td>
+                        </tr>
+
+                        <tr>
+                            <th>ایمیل</th>
+                            <td>@Model.Email</td>
+                        </tr>
+
+                        <tr>
+                            <th>نام کاربری</th>
+                            <td>@Model.UserName</td>
+                        </tr>
+
+                        <tr>
+                            <th>شماره موبایل</th>
+                            <td>@(Model.Mobile ?? Model.PhoneNumber)</td>
+                        </tr>
+
+                        
+                    </table>
+
+                </div>
+
+            </div>
+
+            <div class="card shadow border-0 mt-4">
+
+                <div class="card-header bg-success text-white">
+
+                    تغییر نقش
+
+                </div>
+
+                <div class="card-body">
+
+                    <form asp-area="Admin"
+                          asp-controller="Dashboard"
+                          asp-action="ChangeRole"
+                          method="post">
+
+                        @Html.AntiForgeryToken()
+
+                        <input type="hidden"
+                               name="id"
+                               value="@Model.Id" />
+
+                        <div class="row">
+
+                            <div class="col-md-6">
+
+                                <select name="role" class="form-select">
+
+                                    <option value="Admin" selected="@(ViewBag.Role == "Admin")">
+                                        مدیر
+                                    </option>
+
+                                    <option value="Writer" selected="@(ViewBag.Role == "Writer")">
+                                        نویسنده
+                                    </option>
+
+                                    <option value="User" selected="@(ViewBag.Role == "User")">
+                                        کاربر
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                            <div class="col-md-3">
+
+                                <button class="btn btn-success">
+
+                                    <i class="bi bi-check-circle ms-2"></i>
+
+                                    ذخیره
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

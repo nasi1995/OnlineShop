@@ -1,0 +1,138 @@
+﻿@model OnlineShop.Models.SiteSetting
+
+@{
+    ViewData["Title"] = "اطلاعات تماس";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="container-fluid">
+
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show">
+
+            <i class="bi bi-check-circle ms-2"></i>
+
+            @TempData["Success"]
+
+            <button type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert">
+            </button>
+
+        </div>
+    }
+
+
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <h2 class="fw-bold">
+            <i class="bi bi-telephone-fill text-success ms-2"></i>
+            اطلاعات تماس
+        </h2>
+
+
+        <a asp-action="Settings" class="btn btn-secondary">
+            بازگشت
+        </a>
+
+    </div>
+
+
+
+    <div class="card shadow border-0">
+
+        <div class="card-body">
+
+
+            <form method="post">
+
+                @Html.AntiForgeryToken()
+
+
+                <div class="row">
+
+
+                    <div class="col-md-6 mb-3">
+
+                        <label asp-for="Phone" class="form-label">
+                            تلفن ثابت
+                        </label>
+
+                        <input asp-for="Phone"
+                               class="form-control" />
+
+                    </div>
+
+
+
+                    <div class="col-md-6 mb-3">
+
+                        <label asp-for="Mobile" class="form-label">
+                            شماره موبایل
+                        </label>
+
+                        <input asp-for="Mobile"
+                               class="form-control" />
+
+                    </div>
+
+
+
+                    <div class="col-md-6 mb-3">
+
+                        <label asp-for="Email" class="form-label">
+                            ایمیل
+                        </label>
+
+                        <input asp-for="Email"
+                               class="form-control" />
+
+                    </div>
+
+
+
+                    <div class="col-md-12 mb-3">
+
+                        <label asp-for="Address" class="form-label">
+                            آدرس
+                        </label>
+
+                        <textarea asp-for="Address"
+                                  rows="5"
+                                  class="form-control"></textarea>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <button class="btn btn-success">
+
+                    <i class="bi bi-check-circle ms-2"></i>
+
+                    ذخیره اطلاعات
+
+                </button>
+
+
+            </form>
+
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}

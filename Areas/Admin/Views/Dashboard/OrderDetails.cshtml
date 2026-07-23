@@ -1,0 +1,278 @@
+﻿@model OnlineShop.Models.Order
+
+@{
+    ViewData["Title"] = "جزئیات سفارش";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <h2 class="fw-bold text-primary">
+            <i class="bi bi-receipt ms-2"></i>
+            جزئیات سفارش #@Model.Id
+        </h2>
+
+        <a asp-area="Admin"
+           asp-controller="Dashboard"
+           asp-action="Orders"
+           class="btn btn-secondary">
+
+            <i class="bi bi-arrow-right ms-2"></i>
+            بازگشت
+
+        </a>
+
+    </div>
+
+    <div class="row">
+
+        <!-- اطلاعات مشتری -->
+        <div class="col-lg-6 mb-4">
+
+            <div class="card shadow border-0 h-100">
+
+                <div class="card-header bg-primary text-white">
+
+                    اطلاعات مشتری
+
+                </div>
+
+                <div class="card-body">
+
+                    <table class="table table-borderless">
+
+                        <tr>
+                            <th width="160">نام</th>
+                            <td>@Model.FullName</td>
+                        </tr>
+
+                        <tr>
+                            <th>موبایل</th>
+                            <td>@Model.Mobile</td>
+                        </tr>
+
+                        <tr>
+                            <th>استان</th>
+                            <td>@Model.Province</td>
+                        </tr>
+
+                        <tr>
+                            <th>شهر</th>
+                            <td>@Model.City</td>
+                        </tr>
+
+                        <tr>
+                            <th>کدپستی</th>
+                            <td>@Model.PostalCode</td>
+                        </tr>
+
+                        <tr>
+                            <th>آدرس</th>
+                            <td>@Model.Address</td>
+                        </tr>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- اطلاعات سفارش -->
+        <div class="col-lg-6 mb-4">
+
+            <div class="card shadow border-0 h-100">
+
+                <div class="card-header bg-success text-white">
+
+                    اطلاعات سفارش
+
+                </div>
+
+                <div class="card-body">
+
+                    <table class="table table-borderless">
+
+                        <tr>
+                            <th width="170">مبلغ کل</th>
+                            <td class="fw-bold text-success">
+                                @Model.TotalPrice.ToString("N0") تومان
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>روش ارسال</th>
+                            <td>@Model.ShippingMethod</td>
+                        </tr>
+
+                        <tr>
+                            <th>روش پرداخت</th>
+                            <td>@Model.PaymentMethod</td>
+                        </tr>
+
+                        <tr>
+                            <th>تاریخ سفارش</th>
+                            <td>@Model.CreatedAt.ToString("yyyy/MM/dd HH:mm")</td>
+                        </tr>
+
+                        <tr>
+                            <th>وضعیت پرداخت</th>
+                            <td>
+
+                                @if (Model.PaymentStatus == "Paid")
+                                {
+                                    <span class="badge bg-success">
+                                        پرداخت شده
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-warning text-dark">
+                                        در انتظار پرداخت
+                                    </span>
+                                }
+
+                            </td>
+                        </tr>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- محصولات سفارش -->
+
+    <div class="card shadow border-0">
+
+        <div class="card-header bg-dark text-white">
+
+            محصولات سفارش
+
+        </div>
+
+        <div class="card-body">
+
+            <div class="table-responsive">
+
+                <table class="table table-hover align-middle">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>تصویر</th>
+                            <th>نام محصول</th>
+                            <th>تعداد</th>
+                            <th>قیمت واحد</th>
+                            <th>جمع</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        @foreach (var item in Model.Items)
+                        {
+                            <tr>
+
+                                <td>
+
+                                    <img src="@item.Product.ImageUrl"
+                                         width="60"
+                                         class="rounded shadow-sm" />
+
+                                </td>
+
+                                <td>@item.Product.Name</td>
+
+                                <td>@item.Quantity</td>
+
+                                <td>
+                                    @item.Price.ToString("N0") تومان
+                                </td>
+
+                                <td class="fw-bold">
+
+                                    @((item.Price * item.Quantity).ToString("N0")) تومان
+
+                                </td>
+
+                            </tr>
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="mt-4">
+
+        <form asp-area="Admin"
+              asp-controller="Dashboard"
+              asp-action="ChangePaymentStatus"
+              method="post">
+
+            @Html.AntiForgeryToken()
+
+            <input type="hidden"
+                   name="id"
+                   value="@Model.Id" />
+
+            <div class="row">
+
+                <div class="col-md-4">
+
+                    <select name="status"
+                            class="form-select">
+
+                        <option value="Pending"
+                                selected="@(Model.PaymentStatus == "Pending")">
+
+                            در انتظار پرداخت
+
+                        </option>
+
+                        <option value="Paid"
+                                selected="@(Model.PaymentStatus == "Paid")">
+
+                            پرداخت شده
+
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <button class="btn btn-success">
+
+                        <i class="bi bi-check-circle ms-2"></i>
+
+                        ذخیره وضعیت
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>

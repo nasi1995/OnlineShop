@@ -1,0 +1,148 @@
+﻿@model IEnumerable<OnlineShop.Models.Order>
+
+@{
+    ViewData["Title"] = "مدیریت سفارش‌ها";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <h2 class="fw-bold text-primary">
+            <i class="bi bi-bag-check ms-2"></i>
+            مدیریت سفارش‌ها
+        </h2>
+
+    </div>
+
+    <div class="card shadow border-0">
+
+        <div class="card-body">
+
+            <form method="get" class="row mb-4">
+
+                <div class="col-md-4">
+
+                    <input type="text"
+                           name="search"
+                           value="@ViewBag.Search"
+                           class="form-control"
+                           placeholder="جستجوی نام یا موبایل..." />
+
+                </div>
+
+                <div class="col-md-2">
+
+                    <button class="btn btn-primary w-100">
+
+                        <i class="bi bi-search"></i>
+
+                        جستجو
+
+                    </button>
+
+                </div>
+
+            </form>
+
+            <div class="table-responsive">
+
+                <table class="table table-hover align-middle">
+
+                    <thead class="table-dark">
+
+                        <tr>
+
+                            <th>#</th>
+                            <th>مشتری</th>
+                            <th>موبایل</th>
+                            <th>مبلغ</th>
+                            <th>پرداخت</th>
+                            <th>تاریخ</th>
+                            <th class="text-center">عملیات</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        @if (Model.Any())
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr>
+
+                                    <td>@item.Id</td>
+
+                                    <td>@item.FullName</td>
+
+                                    <td>@item.Mobile</td>
+
+                                    <td class="fw-bold text-success">
+                                        @item.TotalPrice.ToString("N0") تومان
+                                    </td>
+
+                                    <td>
+
+                                        @if (item.PaymentStatus == "Paid")
+                                        {
+                                            <span class="badge bg-success">
+                                                پرداخت شده
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-warning text-dark">
+                                                در انتظار پرداخت
+                                            </span>
+                                        }
+
+                                    </td>
+
+                                    <td>
+                                        @item.CreatedAt.ToString("yyyy/MM/dd")
+                                    </td>
+
+                                    <td class="text-center">
+
+                                        <a asp-area="Admin"
+                                           asp-controller="Dashboard"
+                                           asp-action="OrderDetails"
+                                           asp-route-id="@item.Id"
+                                           class="btn btn-info btn-sm">
+
+                                            <i class="bi bi-eye"></i>
+
+                                        </a>
+
+                                    </td>
+
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+
+                                <td colspan="7" class="text-center text-muted py-4">
+
+                                    سفارشی یافت نشد.
+
+                                </td>
+
+                            </tr>
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

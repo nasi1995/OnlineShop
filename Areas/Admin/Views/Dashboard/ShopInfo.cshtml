@@ -1,0 +1,121 @@
+﻿@model OnlineShop.Models.SiteSetting
+
+@{
+    ViewData["Title"] = "اطلاعات فروشگاه";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid">
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show">
+
+            <i class="bi bi-check-circle ms-2"></i>
+
+            @TempData["Success"]
+
+            <button class="btn-close"
+                    data-bs-dismiss="alert">
+            </button>
+
+        </div>
+    }
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <h2 class="fw-bold">
+
+            <i class="bi bi-shop text-success ms-2"></i>
+
+            اطلاعات فروشگاه
+
+        </h2>
+
+        <a asp-action="Settings"
+           class="btn btn-secondary">
+
+            بازگشت
+
+        </a>
+
+    </div>
+
+    <div class="card shadow border-0">
+
+        <div class="card-body">
+
+            <form method="post">
+
+                @Html.AntiForgeryToken()
+
+                <div class="row">
+
+                    <div class="col-md-6 mb-3">
+
+                        <label asp-for="SiteName" class="form-label">
+                            نام فروشگاه
+                        </label>
+
+                        <input asp-for="SiteName"
+                               class="form-control" />
+
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+
+                        <label asp-for="Logo" class="form-label">
+                            آدرس لوگو
+                        </label>
+
+                        <input asp-for="Logo"
+                               class="form-control" />
+
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+
+                        <label asp-for="Favicon" class="form-label">
+                            آدرس فاوآیکون
+                        </label>
+
+                        <input asp-for="Favicon"
+                               class="form-control" />
+
+                    </div>
+
+                    <div class="col-md-12 mb-3">
+
+                        <label asp-for="Description" class="form-label">
+                            توضیحات سایت
+                        </label>
+
+                        <textarea asp-for="Description"
+                                  rows="5"
+                                  class="form-control">
+                        </textarea>
+
+                    </div>
+
+                </div>
+
+                <button class="btn btn-success">
+
+                    <i class="bi bi-check-circle ms-2"></i>
+
+                    ذخیره اطلاعات
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}

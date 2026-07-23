@@ -1,0 +1,170 @@
+﻿@model OnlineShop.Models.SiteSetting
+
+<footer class="footer">
+
+    <div class="container">
+
+        <div class="row gy-5">
+
+            <!-- برند -->
+            <div class="col-lg-4">
+
+                <img src="@(string.IsNullOrEmpty(Model?.Logo) ? "/images/logo.png" : Model.Logo)"
+                     class="footer-logo"
+                     alt="@Model?.SiteName">
+
+
+                <p class="footer-about">
+
+                    @(Model?.Description ?? "شیرینی زندگی، با طعم اصالت ایرانی. تولید و عرضه انواع نبات زعفرانی و محصولات سنتی با بهترین کیفیت.")
+
+                </p>
+
+            </div>
+
+
+            <!-- لینک‌ها -->
+            <div class="col-lg-2">
+
+                <h5>دسترسی سریع</h5>
+
+                <ul>
+
+                    <li>
+                        <a asp-controller="Home" asp-action="Index">
+                            خانه
+                        </a>
+                    </li>
+
+                    <li>
+                        <a asp-controller="Products" asp-action="Index">
+                            محصولات
+                        </a>
+                    </li>
+
+                    <li>
+                        <a asp-controller="Home" asp-action="About">
+                            درباره ما
+                        </a>
+                    </li>
+
+                    <li>
+                        <a asp-controller="Home" asp-action="Contact">
+                            تماس با ما
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+
+            <!-- خدمات -->
+            <div class="col-lg-3">
+
+                <h5>خدمات مشتریان</h5>
+
+                <ul>
+
+                    <li><a href="#">پیگیری سفارش</a></li>
+
+                    <li><a href="#">روش ارسال</a></li>
+
+                    <li><a href="#">شرایط بازگشت</a></li>
+
+                    <li><a href="#">سوالات متداول</a></li>
+
+                </ul>
+
+            </div>
+
+
+
+            <!-- تماس -->
+            <div class="col-lg-3">
+
+                <h5>ارتباط با ما</h5>
+
+
+                @if (Model != null)
+                {
+                    <p>
+                        <i class="bi bi-telephone"></i>
+                        @Model.Phone
+                    </p>
+
+
+                    <p>
+                        <i class="bi bi-phone"></i>
+                        @Model.Mobile
+                    </p>
+
+
+                    <p>
+                        <i class="bi bi-envelope"></i>
+                        @Model.Email
+                    </p>
+
+
+                    <p>
+                        <i class="bi bi-geo-alt"></i>
+                        @Model.Address
+                    </p>
+                }
+
+
+
+                <div class="footer-contact-wrap">
+
+                    <div class="socials">
+
+
+                        @if (!string.IsNullOrEmpty(Model?.Instagram))
+                        {
+                            <a href="@Model.Instagram">
+                                <i class="bi bi-instagram"></i>
+                            </a>
+                        }
+
+
+                        @if (!string.IsNullOrEmpty(Model?.Telegram))
+                        {
+                            <a href="@Model.Telegram">
+                                <i class="bi bi-telegram"></i>
+                            </a>
+                        }
+
+
+                        @if (!string.IsNullOrEmpty(Model?.WhatsApp))
+                        {
+                            <a href="@Model.WhatsApp">
+                                <i class="bi bi-whatsapp"></i>
+                            </a>
+                        }
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <hr>
+
+
+        <div class="copyright">
+
+            © 2026 تمامی حقوق این وب‌سایت متعلق به
+            @(Model?.SiteName ?? "نبات")
+            می‌باشد.
+
+        </div>
+
+
+    </div>
+
+</footer>

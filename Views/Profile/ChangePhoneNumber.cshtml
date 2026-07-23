@@ -1,0 +1,58 @@
+﻿@model OnlineShop.Models.ApplicationUser
+
+
+<div class="container py-5">
+
+
+    <div class="card shadow-sm border-0 mx-auto"
+         style="max-width:450px">
+
+
+        <div class="card-body">
+
+
+            <h4 class="text-center mb-4">
+
+                تغییر شماره موبایل
+
+            </h4>
+
+
+            <form asp-action="ChangePhoneNumber"
+                  method="post">
+
+
+                <div class="mb-3">
+
+                    <label>
+                        شماره موبایل جدید
+                    </label>
+
+
+                    <input name="mobile"
+                           value="@Model.Mobile"
+                           class="form-control" />
+
+
+                </div>
+
+
+
+                <button class="btn btn-success w-100">
+
+                    ثبت شماره جدید
+
+                </button>
+
+
+            </form>
+
+
+
+        </div>
+
+
+    </div>
+
+
+</div>

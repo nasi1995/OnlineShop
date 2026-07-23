@@ -1,0 +1,227 @@
+﻿@model OnlineShop.Areas.Admin.ViewModels.EditProductViewModel
+
+@{
+    ViewData["Title"] = "ویرایش محصول";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <h2 class="fw-bold text-warning">
+            <i class="bi bi-pencil-square ms-2"></i>
+            ویرایش محصول
+        </h2>
+
+        <a asp-area="Admin"
+           asp-controller="Dashboard"
+           asp-action="Products"
+           class="btn btn-outline-secondary">
+
+            <i class="bi bi-arrow-right ms-2"></i>
+            بازگشت
+
+        </a>
+
+    </div>
+
+    <div class="card shadow border-0">
+
+        <div class="card-body p-4">
+
+            <form asp-area="Admin"
+                  asp-controller="Dashboard"
+                  asp-action="EditProduct"
+                  asp-route-id="@Model.Id"
+                  method="post"
+                  enctype="multipart/form-data">
+
+                @Html.AntiForgeryToken()
+
+                <input asp-for="Id" type="hidden" />
+                <input asp-for="CurrentImage" type="hidden" />
+
+                <div asp-validation-summary="ModelOnly"
+                     class="alert alert-danger"></div>
+
+                <div class="row">
+
+                    <div class="col-md-6 mb-3">
+
+                        <label asp-for="Name" class="form-label fw-bold"></label>
+
+                        <input asp-for="Name" class="form-control" />
+
+                        <span asp-validation-for="Name"
+                              class="text-danger"></span>
+
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label fw-bold">
+                            دسته بندی
+                        </label>
+
+                        <select asp-for="CategoryId" class="form-select">
+
+                            @foreach (var item in ViewBag.Categories)
+                            {
+                                <option value="@item.Id">
+                                    @item.Name
+                                </option>
+                            }
+
+                        </select>
+
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+
+                        <label asp-for="Price"
+                               class="form-label fw-bold"></label>
+
+                        <input asp-for="Price"
+                               class="form-control" />
+
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+
+                        <label asp-for="OldPrice"
+                               class="form-label fw-bold"></label>
+
+                        <input asp-for="OldPrice"
+                               class="form-control" />
+
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+
+                        <label asp-for="Weight"
+                               class="form-label fw-bold"></label>
+
+                        <input asp-for="Weight"
+                               class="form-control" />
+
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+
+                        <label asp-for="ProductType"
+                               class="form-label fw-bold"></label>
+
+                        <input asp-for="ProductType"
+                               class="form-control" />
+
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+
+                        <label asp-for="Flavor"
+                               class="form-label fw-bold"></label>
+
+                        <input asp-for="Flavor"
+                               class="form-control" />
+
+                    </div>
+
+                    <div class="col-md-12 mb-3">
+
+                        <label asp-for="Description"
+                               class="form-label fw-bold"></label>
+
+                        <textarea asp-for="Description"
+                                  rows="5"
+                                  class="form-control"></textarea>
+
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+
+                        <label asp-for="ReviewCount"
+                               class="form-label fw-bold"></label>
+
+                        <input asp-for="ReviewCount"
+                               class="form-control" />
+
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+
+                        <label asp-for="Image"
+                               class="form-label fw-bold">
+                            تصویر جدید
+                        </label>
+
+                        <input asp-for="Image"
+                               type="file"
+                               class="form-control"
+                               accept="image/*"
+                               onchange="previewImage(event)" />
+
+                    </div>
+
+                    <div class="col-md-12 text-center">
+
+                        @if (!string.IsNullOrEmpty(Model.CurrentImage))
+                        {
+                            <img id="preview"
+                                 src="@Model.CurrentImage"
+                                 class="img-thumbnail shadow rounded"
+                                 style="max-width:350px;" />
+                        }
+                        else
+                        {
+                            <img id="preview"
+                                 src="https://placehold.co/350x250?text=No+Image"
+                                 class="img-thumbnail shadow rounded"
+                                 style="max-width:350px;" />
+                        }
+
+                    </div>
+
+                </div>
+
+                <hr />
+
+                <button class="btn btn-warning px-5">
+
+                    <i class="bi bi-check-circle ms-2"></i>
+
+                    ذخیره تغییرات
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts {
+
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+
+        function previewImage(event){
+
+            const reader = new FileReader();
+
+            reader.onload = function(){
+
+                document.getElementById("preview").src = reader.result;
+
+            }
+
+            reader.readAsDataURL(event.target.files[0]);
+
+        }
+
+    </script>
+
+}

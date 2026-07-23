@@ -1,0 +1,359 @@
+﻿@model List<OnlineShop.Models.Order>
+
+@{
+    ViewData["Title"] = "پروفایل من";
+
+    var user = ViewBag.User as OnlineShop.Models.ApplicationUser;
+}
+
+
+<div class="container py-5">
+
+    <div class="row">
+
+
+        <!-- اطلاعات کاربر -->
+        <div class="col-lg-4 mb-4">
+
+
+            <div class="card shadow border-0 rounded-4">
+
+
+                <div class="card-body text-center">
+
+
+                    <!-- عکس پروفایل -->
+                    @if (!string.IsNullOrEmpty(user?.ProfileImage))
+                    {
+                        <img src="~/images/profile/@user.ProfileImage"
+                             class="rounded-circle mb-3 border mx-auto"
+                             width="120"
+                             height="120"
+                             style="object-fit:cover;" />
+                    }
+                    else
+                    {
+                        <img src="https://ui-avatars.com/api/?name=@user?.FullName&background=C89B3C&color=fff&size=128"
+                             class="rounded-circle mb-3 border mx-auto"
+                             width="120"
+                             height="120"
+                             style="object-fit:cover;" />
+                    }
+
+
+
+                    <h4 class="fw-bold">
+                        @user?.FullName
+                    </h4>
+
+
+
+                    <p class="text-muted mb-2">
+                        @user?.Email
+                    </p>
+
+
+
+                    <p class="mb-4">
+
+                        <i class="bi bi-telephone-fill text-success"></i>
+
+                        @user?.Mobile
+
+                    </p>
+
+
+
+
+                    <div class="d-grid gap-2">
+
+
+                        <a asp-controller="Profile"
+                           asp-action="ChangePhoto"
+                           class="btn btn-outline-success">
+
+                            <i class="bi bi-camera-fill me-2 mx-auto"></i>
+
+                            تغییر عکس پروفایل
+
+                        </a>
+
+
+
+                        <a asp-controller="Profile"
+                           asp-action="EditAddress"
+                           class="btn btn-outline-success">
+
+
+                            <i class="bi bi-geo-alt-fill me-2"></i>
+
+                            تغییر آدرس
+
+
+                        </a>
+
+
+
+
+                        <a asp-controller="Profile"
+                           asp-action="ChangePhoneNumber"
+                           class="btn btn-outline-success">
+
+
+                            <i class="bi bi-telephone-fill me-2"></i>
+
+                            تغییر شماره موبایل
+
+
+                        </a>
+
+
+
+
+                        <a asp-controller="Profile"
+                           asp-action="ChangePassword"
+                           class="btn btn-success">
+
+
+                            <i class="bi bi-shield-lock-fill me-2"></i>
+
+                            تغییر رمز عبور
+
+
+                        </a>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+
+
+        <!-- سفارش ها -->
+        <div class="col-lg-8">
+
+
+            <div class="card shadow border-0 rounded-4">
+
+
+                <div class="card-body">
+
+
+                    <h3 class="mb-4">
+
+
+                        <i class="bi bi-bag-check-fill text-success"></i>
+
+                        سفارش‌های من
+
+
+                    </h3>
+
+
+
+
+
+                    @if (!Model.Any())
+                    {
+
+                        <div class="alert alert-warning text-center">
+
+                            هنوز سفارشی ثبت نکرده‌اید.
+
+                        </div>
+
+                    }
+                    else
+                    {
+
+
+                        <table class="table table-hover align-middle text-center">
+
+
+                            <thead class="table-success">
+
+
+                                <tr>
+
+                                    <th>
+                                        شماره سفارش
+                                    </th>
+
+
+                                    <th>
+                                        تاریخ
+                                    </th>
+
+
+                                    <th>
+                                        مبلغ
+                                    </th>
+
+
+                                    <th>
+                                        وضعیت
+                                    </th>
+
+
+                                    <th>
+                                        عملیات
+                                    </th>
+
+
+                                </tr>
+
+
+                            </thead>
+
+
+
+
+
+                            <tbody>
+
+
+                                @foreach (var item in Model)
+                                {
+
+
+                                    <tr>
+
+
+                                        <td>
+                                            #@item.Id
+                                        </td>
+
+
+
+                                        <td>
+                                            @item.CreatedAt.ToString("yyyy/MM/dd")
+                                        </td>
+
+
+
+
+                                        <td>
+
+                                            @item.TotalPrice.ToString("N0")
+
+                                            تومان
+
+                                        </td>
+
+
+
+
+
+                                        <td>
+
+
+                                            @switch (item.PaymentStatus)
+                                            {
+
+                                                case "Paid":
+
+                                                    <span class="badge bg-success">
+                                                        پرداخت شده
+                                                    </span>
+
+                                                    break;
+
+
+
+                                                case "Pending":
+
+                                                    <span class="badge bg-warning text-dark">
+                                                        در انتظار پرداخت
+                                                    </span>
+
+                                                    break;
+
+
+
+                                                case "Failed":
+
+                                                    <span class="badge bg-danger">
+                                                        ناموفق
+                                                    </span>
+
+                                                    break;
+
+
+
+                                                default:
+
+                                                    <span class="badge bg-secondary">
+
+                                                        @item.PaymentStatus
+
+                                                    </span>
+
+                                                    break;
+
+                                            }
+
+
+                                        </td>
+
+
+
+
+
+                                        <td>
+
+
+                                            <a asp-action="OrderDetails"
+                                               asp-route-id="@item.Id"
+                                               class="btn btn-success btn-sm">
+
+
+                                                <i class="bi bi-eye-fill"></i>
+
+                                                مشاهده
+
+
+                                            </a>
+
+
+                                        </td>
+
+
+
+                                    </tr>
+
+
+                                }
+
+
+                            </tbody>
+
+
+                        </table>
+
+
+                    }
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+    </div>
+
+
+</div>

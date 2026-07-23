@@ -1,0 +1,73 @@
+﻿@model OnlineShop.Models.SiteSetting
+
+@{
+    ViewData["Title"] = "درباره ما";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid">
+
+    <div class="card shadow-sm border-0">
+
+        <div class="card-header bg-success text-white">
+            <h4 class="mb-0">
+                <i class="bi bi-info-circle-fill me-2"></i>
+                مدیریت صفحه درباره ما
+            </h4>
+        </div>
+
+        <div class="card-body">
+
+            @if (TempData["Success"] != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show">
+                    @TempData["Success"]
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="alert">
+                    </button>
+                </div>
+            }
+
+            <form asp-action="AboutUs" method="post">
+
+                <div asp-validation-summary="ModelOnly"
+                     class="text-danger mb-3">
+                </div>
+
+                <div class="mb-4">
+
+                    <label asp-for="AboutUs"
+                           class="form-label fw-bold">
+                    </label>
+
+                    <textarea asp-for="AboutUs"
+                              rows="12"
+                              class="form-control"
+                              placeholder="متن صفحه درباره ما را وارد کنید..."></textarea>
+
+                    <span asp-validation-for="AboutUs"
+                          class="text-danger"></span>
+
+                </div>
+
+                <button type="submit"
+                        class="btn btn-success">
+
+                    <i class="bi bi-check-circle me-1"></i>
+
+                    ذخیره تغییرات
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

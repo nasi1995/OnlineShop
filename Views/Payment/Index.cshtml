@@ -1,0 +1,368 @@
+﻿@model OnlineShop.Models.Order
+
+@using Newtonsoft.Json
+@using OnlineShop.Models
+
+@{
+    ViewData["Title"] = "پرداخت";
+
+    var cartJson = Context.Session.GetString("Cart");
+
+    var cart = cartJson == null
+        ? new List<CartItem>()
+        : JsonConvert.DeserializeObject<List<CartItem>>(cartJson);
+
+    var total = cart?.Sum(x => x.Price * x.Quantity) ?? 0;
+}
+
+
+<form asp-controller="Payment"
+      asp-action="Index"
+      method="post">
+
+    @Html.AntiForgeryToken()
+
+
+    <div class="checkout">
+
+        <div class="checkout-box">
+
+
+            <!-- اطلاعات گیرنده -->
+
+            <div class="customer">
+
+                <h3>
+                    اطلاعات گیرنده
+                </h3>
+
+
+                <div asp-validation-summary="ModelOnly"
+                     class="text-danger mb-3">
+                </div>
+
+
+
+                <input asp-for="FullName"
+                       placeholder="نام و نام خانوادگی"
+                       required />
+
+                <span asp-validation-for="FullName"
+                      class="text-danger"></span>
+
+
+
+
+                <input asp-for="Mobile"
+                       placeholder="موبایل"
+                       required />
+
+                <span asp-validation-for="Mobile"
+                      class="text-danger"></span>
+
+
+
+
+
+                <select asp-for="Province"
+                        required>
+
+                    <option value="">
+                        انتخاب استان
+                    </option>
+
+                    <option value="تهران">
+                        تهران
+                    </option>
+
+                    <option value="اصفهان">
+                        اصفهان
+                    </option>
+
+                </select>
+
+
+                <span asp-validation-for="Province"
+                      class="text-danger"></span>
+
+
+
+
+
+
+                <select asp-for="City"
+                        required>
+
+                    <option value="">
+                        انتخاب شهر
+                    </option>
+
+                    <option value="تهران">
+                        تهران
+                    </option>
+
+                    <option value="کرج">
+                        کرج
+                    </option>
+
+                </select>
+
+
+                <span asp-validation-for="City"
+                      class="text-danger"></span>
+
+
+
+
+
+
+
+                <textarea asp-for="Address"
+                          placeholder="آدرس"
+                          required></textarea>
+
+
+                <span asp-validation-for="Address"
+                      class="text-danger"></span>
+
+
+
+
+
+
+                <input asp-for="PostalCode"
+                       placeholder="کد پستی"
+                       required />
+
+
+                <span asp-validation-for="PostalCode"
+                      class="text-danger"></span>
+
+
+
+
+
+
+
+                <h3>
+                    روش ارسال
+                </h3>
+
+
+
+                <label>
+
+                    <input asp-for="ShippingMethod"
+                           type="radio"
+                           value="پست"
+                           checked
+                           required />
+
+                    پست
+
+                </label>
+
+
+
+
+                <label>
+
+                    <input asp-for="ShippingMethod"
+                           type="radio"
+                           value="تیپاکس" />
+
+                    تیپاکس
+
+                </label>
+
+
+
+                <span asp-validation-for="ShippingMethod"
+                      class="text-danger"></span>
+
+
+
+
+
+
+
+
+                <h3>
+                    روش پرداخت
+                </h3>
+
+
+
+                <label>
+
+                    <input asp-for="PaymentMethod"
+                           type="radio"
+                           value="آنلاین"
+                           checked />
+
+                    پرداخت آنلاین
+
+                </label>
+
+
+                <span asp-validation-for="PaymentMethod"
+                      class="text-danger"></span>
+
+
+            </div>
+
+
+
+
+
+
+
+
+
+            <!-- خلاصه سفارش -->
+
+            <div class="summary">
+
+
+                <h3>
+                    خلاصه سفارش
+                </h3>
+
+
+
+
+
+                @if (cart != null && cart.Any())
+                {
+
+                    foreach (var item in cart)
+                    {
+
+                        <div class="summary-item">
+
+
+                            <span>
+
+                                @item.Name
+
+                                <small>
+                                    × @item.Quantity
+                                </small>
+
+                            </span>
+
+
+                            <b>
+
+                                @((item.Price * item.Quantity).ToString("N0"))
+
+                                تومان
+
+                            </b>
+
+
+                        </div>
+
+                    }
+
+                }
+
+
+
+
+
+                <hr>
+
+
+
+
+
+                <div>
+
+                    <span>
+                        جمع کالا
+                    </span>
+
+
+                    <b>
+                        @total.ToString("N0")
+                        تومان
+                    </b>
+
+                </div>
+
+
+
+
+
+                <div>
+
+                    <span>
+                        هزینه ارسال
+                    </span>
+
+
+                    <b>
+                        رایگان
+                    </b>
+
+                </div>
+
+
+
+
+
+                <hr>
+
+
+
+
+
+                <div class="price">
+
+                    <span>
+                        قابل پرداخت
+                    </span>
+
+
+                    <strong>
+                        @total.ToString("N0")
+                        تومان
+                    </strong>
+
+
+                </div>
+
+
+
+
+
+                <button type="submit"
+                        class="nabat-btn">
+
+                    <i class="bi bi-credit-card"></i>
+
+                    پرداخت سفارش
+
+                </button>
+
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</form>
+
+
+
+@section Scripts {
+
+    <partial name="_ValidationScriptsPartial" />
+
+}
