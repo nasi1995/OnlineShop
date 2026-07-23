@@ -54,10 +54,43 @@ wwwroot/
 ```
 
 ---
-
 ## 📸 Screenshots
 
-Screenshots will be added soon.
+### Home Page
+
+![Home](screenshots/home.png)
+
+### Shop
+
+![Shop](screenshots/shop.png)
+
+### Product Details
+
+![Product](screenshots/product-details.png)
+
+### Shopping Cart
+
+![Cart](screenshots/cart.png)
+
+### Checkout
+
+![Checkout](screenshots/checkout.png)
+
+### Admin Dashboard
+
+![Dashboard](screenshots/admin-dashboard.png)
+
+### Product Management
+
+![Products](screenshots/admin-products.png)
+
+### Orders
+
+![Orders](screenshots/admin-orders.png)
+
+### Settings
+
+![Settings](screenshots/admin-settings.png)
 
 ---
 
